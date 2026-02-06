@@ -274,7 +274,7 @@
 
         .gooey-word {
             font-family: 'Oswald', sans-serif;
-            font-size: 2.8rem; 
+            font-size: 4.5rem; /* Aumentado de 2.8rem para 4.5rem (Mais destaque) */
             font-weight: 900;
             color: white; 
             opacity: 0;
@@ -675,10 +675,20 @@
                 flex-wrap: nowrap; /* Impede quebrar linha */
                 font-size: 8vw; /* Tamanho fluido */
             }
+            /* REDUÇÃO DE ESPAÇO MOBILE */
+            .arena-title-container {
+                margin-bottom: 0px; 
+            }
+
+            .subtitle-anim-container {
+                margin-top: -5px; /* Puxa para cima */
+                margin-bottom: 20px;
+            }
+
             .char { min-width: auto; } /* Permite encolher se necessário */
             
             /* Ajuste do Gooey no mobile */
-            .gooey-word { font-size: 1.5rem; }
+            .gooey-word { font-size: 2.2rem; } /* Aumentado também no mobile */
             .gooey-container { gap: 5px; }
 
             /* Hero adjustments */
@@ -786,7 +796,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="logo.png" alt="Arena Fitness Logo" class="logo-img">
+            <!-- LOGO ATUALIZADA -->
+            <img src="assets/logo.JPG" alt="Arena Fitness Logo" class="logo-img">
             
             <!-- Animação Flip 3D (Título Principal) -->
             <div class="arena-title-container" id="title-container">
