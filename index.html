@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena Fitness - Jacareacanga</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #ff0000;
+            --dark-red: #8b0000;
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --text-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-red);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .since-badge-header {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--primary-red);
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border: 1px solid var(--primary-red);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #2a0000 0%, #000000 100%);
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 50px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo-img {
+            max-width: 150px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- 3D FLIP ANIMATION --- */
+        .arena-title-container {
+            perspective: 1000px;
+            margin-bottom: 10px;
+            min-height: 80px;
+        }
+
+        .arena-title {
+            font-size: 4rem;
+            font-weight: 900;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        /* Classe reutilizável para o subtítulo também */
+        .subtitle-anim-container {
+            perspective: 1000px;
+            margin-top: 5px;
+            margin-bottom: 40px;
+            min-height: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+        }
+        
+        /* Ajuste do tamanho da fonte para o subtítulo */
+        .subtitle-anim-container .char {
+            font-size: 1.2rem;
+            color: #ccc;
+            letter-spacing: 2px;
+            background: none; /* Remove shimmer vermelho do subtítulo */
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: #ccc;
+            text-transform: uppercase;
+        }
+
+        .char {
+            display: inline-block;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            /* Shimmer Effect Padrão (para Título Principal) */
+            background: linear-gradient(to right, #ff0000 20%, #ffffff 50%, #ff0000 80%);
+            background-size: 200% auto;
+            color: #ff0000;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        .animate-flip {
+            animation: flipIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+        }
+
+        @keyframes flipIn {
+            0% { opacity: 0; transform: rotateX(-90deg); }
+            100% { opacity: 1; transform: rotateX(0deg); }
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* --- GOOEY TEXT MORPHING (CORRIGIDO PARA LEGIBILIDADE) --- */
+        .gooey-container {
+            position: relative;
+            height: 100px;
+            width: 100%;
+            filter: url(#goo); /* Aplica o filtro SVG */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gooey-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem; 
+            font-weight: 900;
+            color: white; 
+            text-align: center;
+            letter-spacing: 3px;
+            /* Animação suave de pulso para interagir com o filtro Gooey */
+            animation: liquidPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes liquidPulse {
+            0%, 100% { transform: scale(1); filter: blur(0px); }
+            50% { transform: scale(1.05); filter: blur(1px); } /* Blur leve para efeito líquido */
+        }
+
+        /* SVG Filter (Oculto visualmente) */
+        .svg-filter {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        /* --- Section Titles Shimmer Effect --- */
+        .shimmer-text {
+            color: #fff;
+            background: linear-gradient(90deg, #fff 0%, #ff0000 50%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerTitle 3s linear infinite;
+        }
+
+        @keyframes shimmerTitle {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* --- Tip Separator --- */
+        .tip-separator {
+            background: #111;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            color: #888;
+            font-style: italic;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip-emoji { font-size: 1.5rem; }
+
+        /* --- Pilates Launch Section --- */
+        .pilates-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 60px 5%;
+            border-left: 5px solid #d4af37;
+            margin: 40px 5%;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pilates-section h2 {
+            color: #d4af37;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .pilates-highlight {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Accordion Style for Pilates */
+        .pilates-details-container {
+            margin-top: 20px;
+        }
+        
+        details {
+            background: rgba(0,0,0,0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        
+        details[open] {
+            background: rgba(0,0,0,0.5);
+            padding-bottom: 15px;
+        }
+
+        summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #d4af37;
+            list-style: none; /* Remove seta padrão */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+        }
+        
+        details[open] summary::after {
+            content: '-';
+        }
+
+        .accordion-content {
+            padding: 0 15px;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        /* --- History & Stats --- */
+        .about-section {
+            padding: 60px 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background-color: var(--black);
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--dark-gray);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            display: block;
+        }
+
+        /* --- Plans (Pricing) Modernized --- */
+        .plans-section {
+            padding: 80px 5%;
+            background-color: #0f0f0f;
+            text-align: center;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .plan-card {
+            background: #141414;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 0;
+            position: relative;
+            transition: 0.3s;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-red);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(255,0,0,0.4);
+            z-index: 5;
+        }
+
+        .plan-header {
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px 20px 0 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .plan-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            font-family: 'Oswald', sans-serif;
+            text-shadow: 0 0 10px rgba(255,0,0,0.2);
+        }
+
+        .plan-body {
+            padding: 20px;
+            flex-grow: 1;
+            color: #aaa;
+        }
+
+        .whatsapp-cta {
+            margin: 20px;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+        }
+        
+        .whatsapp-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* --- Team Section --- */
+        .team-section {
+            padding: 60px 5%;
+            background: var(--dark-gray);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .team-card {
+            background: var(--black);
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 4px solid var(--primary-red);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-img-placeholder {
+            width: 100%;
+            height: 220px;
+            background-color: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+
+        .team-info {
+            padding: 20px 15px;
+        }
+
+        .team-phrase {
+            font-size: 0.8rem;
+            color: #888;
+            font-style: italic;
+            margin: 10px 0;
+            display: block;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            color: #fff;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        
+        .social-btn:hover { color: var(--primary-red); }
+        .social-btn.insta:hover { color: #E1306C; }
+        .social-btn.whats:hover { color: #25D366; }
+
+        /* --- Extras (Herbalife & Challenges) --- */
+        .features-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--black);
+        }
+
+        .feature-box {
+            padding: 60px;
+            text-align: center;
+        }
+
+        .herbalife-box {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            border-right: 1px solid #333;
+        }
+
+        .challenge-box {
+            background: #111;
+        }
+
+        /* --- Services / Assessment --- */
+        .services-section {
+            padding: 60px 5%;
+            background: #1a1a1a;
+            text-align: center;
+        }
+        
+        .assessment-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .assessment-badge {
+            background: #333;
+            color: #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .assessment-badge:hover {
+            border-color: var(--primary-red);
+            background: #000;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #000;
+            padding: 50px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            border-top: 5px solid var(--primary-red);
+        }
+
+        .copyright {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+            border-radius: 10px;
+            filter: grayscale(100%) invert(92%) contrast(83%);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .arena-title { font-size: 2.5rem; }
+            .gooey-text { font-size: 1.8rem; letter-spacing: 0; }
+            .about-section, .features-section { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .hero { padding-top: 120px; }
+            .since-badge-header { display: none; }
+            .subtitle-anim-container .char { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Filtro SVG Ajustado para MAXIMA Legibilidade -->
+    <svg class="svg-filter">
+        <defs>
+            <filter id="goo">
+                <!-- stdDeviation reduzido para 2 para texto nítido -->
+                <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                <!-- Contraste na matrix -->
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Navegação -->
+    <header>
+        <div class="header-left">
+            <div class="logo-text" style="font-weight: 900; font-size: 1.2rem; color: #fff;">
+                <i class="fa-solid fa-dumbbell" style="color: var(--primary-red);"></i> ARENA FITNESS
+            </div>
+            <div class="since-badge-header">SINCE 2022</div>
+        </div>
+        <nav class="nav-links">
+            <a href="#pilates">Pilates</a>
+            <a href="#planos">Planos</a>
+            <a href="#equipe">Equipe</a>
+            <a href="#historia">História</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="image_82edc4.png" alt="Arena Fitness Logo" class="logo-img">
+            
+            <!-- Animação Flip 3D (Título Principal) -->
+            <div class="arena-title-container" id="title-container">
+                <!-- Injetado via JS -->
+            </div>
+
+             <!-- Subtítulo Acompanhando (Com mesma animação) -->
+             <div class="subtitle-anim-container" id="subtitle-container">
+                 <!-- Injetado via JS -->
+             </div>
+
+            <!-- Animação Gooey Text (Frase Única e Legível) -->
+            <div class="gooey-container">
+                <div class="gooey-text">SEU LUGAR É AQUI!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dica Aleatória 1 -->
+    <div class="tip-separator">
+        <span class="tip-emoji">🔥</span> "A persistência realiza o impossível."
+    </div>
+
+    <!-- Novidade Pilates -->
+    <section id="pilates" class="pilates-section">
+        <div class="pilates-content">
+            <h2><i class="fa-solid fa-spa"></i> NOVIDADE: ARENA PILATES STUDIO</h2>
+            <p style="color: #ccc; font-size: 1.1rem; margin-bottom: 20px;">
+                Dia <strong>7 de Fevereiro</strong>, a partir das <strong>8h30</strong>.<br>
+                Jacareacanga vai ganhar um novo espaço dedicado ao cuidado com o corpo e a mente.
+            </p>
+            <div class="pilates-highlight">
+                <i class="fa-solid fa-user-doctor"></i> Fisioterapeuta: Dra. Kailane Ribeiro
+            </div>
+
+            <!-- Conteúdo Escondido / Expansível -->
+            <div class="pilates-details-container">
+                <details>
+                    <summary>Ver Benefícios e Movimentos</summary>
+                    <div class="accordion-content">
+                        <br>
+                        <strong style="color:var(--primary-red)">Principais Benefícios:</strong>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li>Melhora da postura e flexibilidade.</li>
+                            <li>Fortalecimento do core e coluna.</li>
+                            <li>Alívio de dores nas costas e estresse.</li>
+                        </ul>
+                        <strong style="color:var(--primary-red)">Movimentos:</strong>
+                        <ul style="margin-left: 20px;">
+                            <li>The Hundred (Aquecimento intenso)</li>
+                            <li>Roll Up (Mobilidade da coluna)</li>
+                            <li>Teaser (Desafio de equilíbrio)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- História & Stats -->
+    <section id="historia" class="about-section">
+        <div class="about-text">
+            <h2 class="shimmer-text">NOSSA HISTÓRIA</h2>
+            <p>Com mais de três anos de história transformando vidas em Jacareacanga, a <strong>Arena Fitness</strong> é um empreendimento familiar liderado por <strong>Luciana & Família</strong>.</p>
+            <br>
+            <p>Nosso compromisso vai além do exercício físico; buscamos criar uma comunidade de superação.</p>
+        </div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-number">+200</span>
+                <span>Alunos Ativos</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3+</span>
+                <span>Anos de História</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dica Aleatória 2 -->
+    <div class="tip-separator">
+        <span class="tip-emoji">💧</span> "Se hidrate bem durante o treino!"
+    </div>
+
+    <!-- Planos -->
+    <section id="planos" class="plans-section">
+        <h2 class="shimmer-text" style="font-size:2.5rem; margin-bottom: 10px;">CONHEÇA NOSSOS PLANOS</h2>
+        <p style="color:#666; margin-bottom: 30px;">Escolha a melhor opção para o seu objetivo</p>
+        
+        <div class="plans-grid">
+            <!-- Diária -->
+            <div class="plan-card">
+                <div class="plan-badge" style="background: #444;">Experimente</div>
+                <div class="plan-header">
+                    <div class="plan-title">DIÁRIA</div>
+                    <div class="plan-price"><small style="font-size:1.5rem">R$</small>20</div>
+                </div>
+                <div class="plan-body">
+                    <p>Acesso total por 1 dia</p>
+                    <p>Treino livre</p>
+                </div>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+uma+diária" class="whatsapp-cta" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Escolher
+                </a>
+            </div>
+
+            <!-- Quinzenal -->
+            <div class="plan-card">
+                 <div class="plan-badge" style="background: #666;">Flexível</div>
+                <div class="plan-header">
+                    <div class="plan-title">QUINZENAL</div>
+                    <div class="plan-price"><small style="font-size:1.5rem">R$</small>80</div>
+                </div>
+                <div class="plan-body">
+                    <p>15 dias de treino</p>
+                    <p>Sem fidelidade</p>
+                </div>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+quinzenal" class="whatsapp-cta" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Escolher
+                </a>
+            </div>
+
+            <!-- Mensal (Destaque) -->
+            <div class="plan-card" style="border: 2px solid var(--primary-red); transform: scale(1.05); z-index: 10;">
+                <div class="plan-badge">Mais Popular 🔥</div>
+                <div class="plan-header" style="background: rgba(255,0,0,0.1);">
+                    <div class="plan-title" style="color:white;">MENSAL</div>
+                    <div class="plan-price"><small style="font-size:1.5rem">R$</small>110</div>
+                </div>
+                <div class="plan-body">
+                    <p style="color: white; font-weight: bold;">30 dias de acesso total</p>
+                    <p>Acompanhamento</p>
+                </div>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+mensal" class="whatsapp-cta" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Eu Quero!
+                </a>
+            </div>
+
+            <!-- Trimestral -->
+            <div class="plan-card">
+                 <div class="plan-badge" style="background: #8b0000;">Foco</div>
+                <div class="plan-header">
+                    <div class="plan-title">TRIMESTRAL</div>
+                    <div class="plan-price"><small style="font-size:1.5rem">R$</small>290</div>
+                </div>
+                <div class="plan-body">
+                    <p>Plano de 3 meses</p>
+                    <p>Economia progressiva</p>
+                </div>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+trimestral" class="whatsapp-cta" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Escolher
+                </a>
+            </div>
+
+            <!-- Semestral -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-title">SEMESTRAL</div>
+                    <div class="plan-price"><small style="font-size:1.5rem">R$</small>580</div>
+                </div>
+                <div class="plan-body">
+                    <p>Plano de 6 meses</p>
+                    <p>Resultado consistente</p>
+                </div>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+semestral" class="whatsapp-cta" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Escolher
+                </a>
+            </div>
+
+            <!-- Anual -->
+            <div class="plan-card">
+                 <div class="plan-badge" style="background: gold; color: black;">Melhor Valor</div>
+                <div class="plan-header">
+                    <div class="plan-title">ANUAL</div>
+                    <div class="plan-price"><small style="font-size:1.5rem">R$</small>1.200</div>
+                </div>
+                <div class="plan-body">
+                    <p>12 meses de treino</p>
+                    <p>Maior economia anual</p>
+                </div>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+anual" class="whatsapp-cta" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Escolher
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frase Motivacional -->
+    <div style="background: var(--primary-red); color: white; padding: 40px 5%; text-align: center;">
+        <i class="fa-solid fa-quote-left"></i>
+        <span style="font-size: 1.5rem; font-weight: bold; margin: 0 15px; font-style: italic; font-family: 'Oswald', sans-serif;">
+            "A disciplina é a ponte entre metas e realizações."
+        </span>
+        <i class="fa-solid fa-quote-right"></i>
+    </div>
+
+    <!-- Equipe -->
+    <section id="equipe" class="team-section">
+        <h2 class="shimmer-text" style="text-align:center; margin-bottom:40px;">NOSSA EQUIPE</h2>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img-placeholder">🏋️‍♂️</div>
+                <div class="team-info">
+                    <h3 style="color:white;">Gilmar da Silva</h3>
+                    <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
+                    <span class="team-phrase">"Comece agora a sua mudança!"</span>
+                    <div class="team-socials">
+                        <a href="https://instagram.com" class="social-btn insta"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/" class="social-btn whats"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-placeholder">🏋️‍♀️</div>
+                <div class="team-info">
+                    <h3 style="color:white;">Thais Mendes</h3>
+                    <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
+                    <span class="team-phrase">"Seu foco é sua força."</span>
+                    <div class="team-socials">
+                        <a href="https://instagram.com" class="social-btn insta"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/" class="social-btn whats"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-placeholder">🏋️‍♀️</div>
+                <div class="team-info">
+                    <h3 style="color:white;">Milena Miranda</h3>
+                    <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
+                    <span class="team-phrase">"Supere seus limites."</span>
+                    <div class="team-socials">
+                        <a href="https://instagram.com" class="social-btn insta"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/" class="social-btn whats"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-placeholder">🏋️‍♂️</div>
+                <div class="team-info">
+                    <h3 style="color:white;">Eudernal Sousa</h3>
+                    <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
+                    <span class="team-phrase">"Disciplina gera resultado."</span>
+                    <div class="team-socials">
+                         <a href="https://instagram.com" class="social-btn insta"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/" class="social-btn whats"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+             <div class="team-card">
+                <div class="team-img-placeholder">🏋️‍♀️</div>
+                <div class="team-info">
+                    <h3 style="color:white;">Karina</h3>
+                    <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
+                    <span class="team-phrase">"Vem treinar com a gente!"</span>
+                    <div class="team-socials">
+                         <a href="https://instagram.com" class="social-btn insta"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/" class="social-btn whats"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extras: Herbalife & Desafio -->
+    <section class="features-section">
+        <div class="feature-box herbalife-box">
+            <h3 style="color: #7BC143; font-size: 2rem; margin-bottom:10px;">ESPAÇO HERBALIFE</h3>
+            <p style="color: #fff; margin-bottom: 20px;">Nutrição completa para o seu pré e pós-treino.</p>
+            <ul style="list-style: none; color: #ddd;">
+                <li><i class="fa-solid fa-check"></i> Shakes Proteicos</li>
+                <li><i class="fa-solid fa-check"></i> Suplementação</li>
+                <li><i class="fa-solid fa-check"></i> Chás Energéticos</li>
+                <li style="margin-top:10px; font-style:italic;">e entre outros...</li>
+            </ul>
+        </div>
+        <div class="feature-box challenge-box">
+            <h3 style="color: #00ff88; font-size: 2rem; margin-bottom:15px;">DESAFIO DO MÊS</h3>
+            <i class="fa-solid fa-person-running" style="font-size: 3rem; color: #00ff88; margin-bottom: 15px;"></i>
+            <h4 style="color:white; margin-bottom:15px;">"SUBIDA NA BARRA"</h4>
+            <p style="color:#aaa; line-height: 1.6;">Quem fizer Subida na barra fixa de acordo com sua idade, ganha <strong style="color:#fff;">20% de desconto</strong> nos produtos Herbalife!</p>
+        </div>
+    </section>
+
+    <!-- Serviços Extras / Avaliação -->
+    <section class="services-section">
+        <h2 class="shimmer-text" style="margin-bottom: 20px;">SERVIÇOS EXTRAS</h2>
+        
+        <!-- Avaliação Física -->
+        <div style="background: #222; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+            <h3 style="color: var(--primary-red);">AVALIAÇÃO FÍSICA</h3>
+            <p style="color: #888;">Escolha seu avaliador e agende agora:</p>
+            <div class="assessment-list">
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+avaliar+com+Gilmar" target="_blank" class="assessment-badge">Gilmar</a>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+avaliar+com+Thais" target="_blank" class="assessment-badge">Thais</a>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+avaliar+com+Milena" target="_blank" class="assessment-badge">Milena</a>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+avaliar+com+Eudernal" target="_blank" class="assessment-badge">Eudernal</a>
+                <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+avaliar+com+Karina" target="_blank" class="assessment-badge">Karina</a>
+            </div>
+        </div>
+
+        <!-- Nutrição -->
+        <div style="background: #222; padding: 20px; border-radius: 10px;">
+            <h3 style="color: var(--primary-red);">CONSULTA NUTRICIONAL</h3>
+            <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Olá,+gostaria+de+saber+sobre+consulta+nutricional" style="display:inline-block; margin-top:10px; color:#fff; text-decoration:none; background:#25D366; padding:8px 15px; border-radius:5px;">
+                <i class="fa-brands fa-whatsapp"></i> Agendar com Nutri
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato">
+        <div class="footer-col">
+            <h4>ARENA FITNESS</h4>
+            <p><i class="fa-solid fa-clock"></i> Seg - Sex: 06h às 22h</p>
+            <p><i class="fa-solid fa-location-dot"></i> Av. Brg. Haroldo Coimbra Veloso - Jacareacanga, PA</p>
+            <a href="https://api.whatsapp.com/send/?phone=5593991550317&text&type=phone_number&app_absent=0" target="_blank" class="contact-btn" style="background: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display:inline-flex; align-items:center; gap:5px;">
+                <i class="fa-brands fa-whatsapp"></i> (93) 99155-0317
+            </a>
+            <br><br>
+            <a href="https://www.instagram.com/arenafitnessjcr/" target="_blank" style="color: #E1306C; font-size: 2rem;">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+
+        <div class="footer-col">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3976.269004523789!2d-57.75653072410885!3d-6.22278449376527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMTMnMjIuMCJTIDU3wrA0NScyMy41Ilc!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <div class="copyright">
+            © 2026 Direitos Autorais Arena Fitness - Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        /* --- 1. Animação Flip 3D Automática (Título e Subtítulo) --- */
+        function triggerFlipAnimation() {
+            const titleContainer = document.getElementById('title-container');
+            const subContainer = document.getElementById('subtitle-container');
+            const titleText = "ARENA FITNESS";
+            const subText = "Seu novo conceito de academia";
+            
+            // Limpa containers
+            titleContainer.innerHTML = '';
+            subContainer.innerHTML = '';
+            
+            setTimeout(() => {
+                // Animação do Título Principal
+                const titleWrapper = document.createElement('div');
+                titleWrapper.classList.add('arena-title');
+
+                titleText.split('').forEach((char, index) => {
+                    const span = document.createElement('span');
+                    if(char === ' ') {
+                        span.style.width = '20px';
+                    } else {
+                        span.textContent = char;
+                        span.classList.add('char');
+                        // Delay em cascata (mais rápido para o título principal)
+                        span.style.animationDelay = `${index * 0.1}s`; 
+                        span.classList.add('animate-flip');
+                    }
+                    titleWrapper.appendChild(span);
+                });
+                titleContainer.appendChild(titleWrapper);
+
+                // Animação do Subtítulo (Acompanhando a entrada)
+                // Começa um pouquinho depois do título começar (0.5s de delay base)
+                const subWrapper = document.createElement('div');
+                // Adicionamos a classe flex no container pai no CSS, não precisa aqui
+                
+                subText.split('').forEach((char, index) => {
+                    const span = document.createElement('span');
+                    if(char === ' ') {
+                        span.style.width = '10px';
+                    } else {
+                        span.textContent = char;
+                        span.classList.add('char');
+                        // Delay: Base 0.5s + índice rápido
+                        span.style.animationDelay = `${0.5 + (index * 0.05)}s`; 
+                        span.classList.add('animate-flip');
+                    }
+                    subWrapper.appendChild(span);
+                });
+                subContainer.appendChild(subWrapper);
+
+            }, 50);
+        }
+
+        // Inicia e repete a cada 6 segundos (aumentado para dar tempo de ler tudo)
+        document.addEventListener('DOMContentLoaded', () => {
+            triggerFlipAnimation();
+            setInterval(triggerFlipAnimation, 6000); 
+        });
+
+    </script>
+</body>
+</html>
