@@ -201,7 +201,7 @@
             to { background-position: 200% center; }
         }
 
-        /* --- GOOEY TEXT MORPHING (CORRIGIDO PARA LEGIBILIDADE) --- */
+        /* --- GOOEY TEXT SEQUENTIAL (PALAVRA POR PALAVRA) --- */
         .gooey-container {
             position: relative;
             height: 100px;
@@ -210,22 +210,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 15px; /* Espaço entre as palavras */
         }
 
-        .gooey-text {
+        .gooey-word {
             font-family: 'Oswald', sans-serif;
-            font-size: 3rem; 
+            font-size: 2.8rem; 
             font-weight: 900;
             color: white; 
-            text-align: center;
-            letter-spacing: 3px;
-            /* Animação suave de pulso para interagir com o filtro Gooey */
-            animation: liquidPulse 3s ease-in-out infinite;
+            opacity: 0;
+            transform: scale(0.8);
+            /* Animação de entrada sequencial */
+            animation: wordPop 6s infinite;
         }
 
-        @keyframes liquidPulse {
-            0%, 100% { transform: scale(1); filter: blur(0px); }
-            50% { transform: scale(1.05); filter: blur(1px); } /* Blur leve para efeito líquido */
+        /* Delays para criar o efeito "palavra por palavra"
+           Sincronizado aproximadamente após a animação do título */
+        .gooey-word:nth-child(1) { animation-delay: 2.2s; } /* SEU */
+        .gooey-word:nth-child(2) { animation-delay: 2.5s; } /* LUGAR */
+        .gooey-word:nth-child(3) { animation-delay: 2.8s; } /* É */
+        .gooey-word:nth-child(4) { animation-delay: 3.1s; } /* AQUI! */
+
+        @keyframes wordPop {
+            0% { opacity: 0; transform: translateY(20px) scale(0.5); filter: blur(5px); }
+            5% { opacity: 1; transform: translateY(0) scale(1.1); filter: blur(0px); } /* Entrada Explosiva */
+            10% { transform: scale(1); } /* Estabiliza */
+            70% { opacity: 1; transform: scale(1); filter: blur(0px); } /* Mantém visível */
+            80% { opacity: 0; transform: translateY(-10px) scale(1.1); filter: blur(5px); } /* Saída Suave */
+            100% { opacity: 0; }
         }
 
         /* SVG Filter (Oculto visualmente) */
@@ -624,7 +636,7 @@
         /* Responsividade */
         @media (max-width: 768px) {
             .arena-title { font-size: 2.5rem; }
-            .gooey-text { font-size: 1.8rem; letter-spacing: 0; }
+            .gooey-word { font-size: 1.8rem; } /* Ajuste para mobile */
             .about-section, .features-section { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .hero { padding-top: 120px; }
@@ -680,9 +692,12 @@
                  <!-- Injetado via JS -->
              </div>
 
-            <!-- Animação Gooey Text (Frase Única e Legível) -->
+            <!-- Animação Gooey Text (SEQUENCIAL PALAVRA POR PALAVRA) -->
             <div class="gooey-container">
-                <div class="gooey-text">SEU LUGAR É AQUI!</div>
+                <span class="gooey-word">SEU</span>
+                <span class="gooey-word">LUGAR</span>
+                <span class="gooey-word">É</span>
+                <span class="gooey-word">AQUI!</span>
             </div>
         </div>
     </section>
@@ -1042,7 +1057,6 @@
                 // Animação do Subtítulo (Acompanhando a entrada)
                 // Começa um pouquinho depois do título começar (0.5s de delay base)
                 const subWrapper = document.createElement('div');
-                // Adicionamos a classe flex no container pai no CSS, não precisa aqui
                 
                 subText.split('').forEach((char, index) => {
                     const span = document.createElement('span');
@@ -1062,7 +1076,7 @@
             }, 50);
         }
 
-        // Inicia e repete a cada 6 segundos (aumentado para dar tempo de ler tudo)
+        // Inicia e repete a cada 6 segundos (ciclo completo)
         document.addEventListener('DOMContentLoaded', () => {
             triggerFlipAnimation();
             setInterval(triggerFlipAnimation, 6000); 
