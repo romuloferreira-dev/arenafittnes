@@ -28,6 +28,10 @@
             font-family: 'Montserrat', sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--black);
             color: var(--text-color);
@@ -71,6 +75,7 @@
             letter-spacing: 1px;
         }
 
+        /* Desktop Nav */
         .nav-links {
             display: flex;
             gap: 20px;
@@ -86,6 +91,57 @@
 
         .nav-links a:hover {
             color: var(--primary-red);
+        }
+
+        /* Mobile Menu Icon */
+        .mobile-menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Mobile Nav Overlay */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.98);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            transform: translateY(-100%);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .mobile-nav-overlay.active {
+            transform: translateY(0);
+        }
+
+        .mobile-nav-overlay a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .mobile-nav-overlay a:hover {
+            color: var(--primary-red);
+        }
+
+        .close-menu-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            cursor: pointer;
         }
 
         /* --- Hero Section --- */
@@ -121,6 +177,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+            padding: 0 10px; /* Margem de segurança */
         }
 
         .logo-img {
@@ -141,6 +198,9 @@
             perspective: 1000px;
             margin-bottom: 10px;
             min-height: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .arena-title {
@@ -149,7 +209,7 @@
             display: flex;
             justify-content: center;
             gap: 5px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Padrão Desktop */
         }
 
         /* Classe reutilizável para o subtítulo também */
@@ -163,12 +223,11 @@
             gap: 3px;
         }
         
-        /* Ajuste do tamanho da fonte para o subtítulo */
         .subtitle-anim-container .char {
             font-size: 1.2rem;
             color: #ccc;
             letter-spacing: 2px;
-            background: none; /* Remove shimmer vermelho do subtítulo */
+            background: none;
             -webkit-background-clip: unset;
             -webkit-text-fill-color: #ccc;
             text-transform: uppercase;
@@ -178,7 +237,6 @@
             display: inline-block;
             transform-style: preserve-3d;
             backface-visibility: hidden;
-            /* Shimmer Effect Padrão (para Título Principal) */
             background: linear-gradient(to right, #ff0000 20%, #ffffff 50%, #ff0000 80%);
             background-size: 200% auto;
             color: #ff0000;
@@ -201,16 +259,17 @@
             to { background-position: 200% center; }
         }
 
-        /* --- GOOEY TEXT SEQUENTIAL (PALAVRA POR PALAVRA) --- */
+        /* --- GOOEY TEXT SEQUENTIAL --- */
         .gooey-container {
             position: relative;
             height: 100px;
             width: 100%;
-            filter: url(#goo); /* Aplica o filtro SVG */
+            filter: url(#goo);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px; /* Espaço entre as palavras */
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .gooey-word {
@@ -220,34 +279,25 @@
             color: white; 
             opacity: 0;
             transform: scale(0.8);
-            /* Animação de entrada sequencial */
             animation: wordPop 6s infinite;
         }
 
-        /* Delays para criar o efeito "palavra por palavra"
-           Sincronizado aproximadamente após a animação do título */
-        .gooey-word:nth-child(1) { animation-delay: 2.2s; } /* SEU */
-        .gooey-word:nth-child(2) { animation-delay: 2.5s; } /* LUGAR */
-        .gooey-word:nth-child(3) { animation-delay: 2.8s; } /* É */
-        .gooey-word:nth-child(4) { animation-delay: 3.1s; } /* AQUI! */
+        .gooey-word:nth-child(1) { animation-delay: 2.2s; } 
+        .gooey-word:nth-child(2) { animation-delay: 2.5s; }
+        .gooey-word:nth-child(3) { animation-delay: 2.8s; }
+        .gooey-word:nth-child(4) { animation-delay: 3.1s; }
 
         @keyframes wordPop {
             0% { opacity: 0; transform: translateY(20px) scale(0.5); filter: blur(5px); }
-            5% { opacity: 1; transform: translateY(0) scale(1.1); filter: blur(0px); } /* Entrada Explosiva */
-            10% { transform: scale(1); } /* Estabiliza */
-            70% { opacity: 1; transform: scale(1); filter: blur(0px); } /* Mantém visível */
-            80% { opacity: 0; transform: translateY(-10px) scale(1.1); filter: blur(5px); } /* Saída Suave */
+            5% { opacity: 1; transform: translateY(0) scale(1.1); filter: blur(0px); }
+            10% { transform: scale(1); }
+            70% { opacity: 1; transform: scale(1); filter: blur(0px); }
+            80% { opacity: 0; transform: translateY(-10px) scale(1.1); filter: blur(5px); }
             100% { opacity: 0; }
         }
 
-        /* SVG Filter (Oculto visualmente) */
-        .svg-filter {
-            position: absolute;
-            width: 0;
-            height: 0;
-        }
+        .svg-filter { position: absolute; width: 0; height: 0; }
 
-        /* --- Section Titles Shimmer Effect --- */
         .shimmer-text {
             color: #fff;
             background: linear-gradient(90deg, #fff 0%, #ff0000 50%, #fff 100%);
@@ -262,7 +312,6 @@
             100% { background-position: 200% center; }
         }
 
-        /* --- Tip Separator --- */
         .tip-separator {
             background: #111;
             padding: 40px 20px;
@@ -307,10 +356,8 @@
             font-weight: bold;
         }
 
-        /* Accordion Style for Pilates */
-        .pilates-details-container {
-            margin-top: 20px;
-        }
+        /* Accordion Style */
+        .pilates-details-container { margin-top: 20px; }
         
         details {
             background: rgba(0,0,0,0.3);
@@ -319,38 +366,24 @@
             transition: 0.3s;
         }
         
-        details[open] {
-            background: rgba(0,0,0,0.5);
-            padding-bottom: 15px;
-        }
+        details[open] { background: rgba(0,0,0,0.5); padding-bottom: 15px; }
 
         summary {
             padding: 15px;
             cursor: pointer;
             font-weight: bold;
             color: #d4af37;
-            list-style: none; /* Remove seta padrão */
+            list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        summary::after {
-            content: '+';
-            font-size: 1.5rem;
-        }
-        
-        details[open] summary::after {
-            content: '-';
-        }
+        summary::after { content: '+'; font-size: 1.5rem; }
+        details[open] summary::after { content: '-'; }
+        .accordion-content { padding: 0 15px; color: #ddd; line-height: 1.6; }
 
-        .accordion-content {
-            padding: 0 15px;
-            color: #ddd;
-            line-height: 1.6;
-        }
-
-        /* --- History & Stats --- */
+        /* --- About Section --- */
         .about-section {
             padding: 60px 5%;
             display: grid;
@@ -360,10 +393,7 @@
             background-color: var(--black);
         }
 
-        .about-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
+        .about-text h2 { font-size: 2.5rem; margin-bottom: 20px; }
 
         .stats-container {
             display: grid;
@@ -387,7 +417,7 @@
             display: block;
         }
 
-        /* --- Plans (Pricing) Modernized --- */
+        /* --- Plans Section --- */
         .plans-section {
             padding: 80px 5%;
             background-color: #0f0f0f;
@@ -434,6 +464,7 @@
             text-transform: uppercase;
             box-shadow: 0 2px 10px rgba(255,0,0,0.4);
             z-index: 5;
+            white-space: nowrap;
         }
 
         .plan-header {
@@ -479,11 +510,7 @@
             align-items: center;
             gap: 10px;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
-        }
-        
-        .whatsapp-cta:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            font-size: 1rem;
         }
 
         /* --- Team Section --- */
@@ -508,10 +535,6 @@
             transition: transform 0.3s;
         }
 
-        .team-card:hover {
-            transform: translateY(-5px);
-        }
-
         .team-img-placeholder {
             width: 100%;
             height: 220px;
@@ -522,9 +545,7 @@
             font-size: 6rem;
         }
 
-        .team-info {
-            padding: 20px 15px;
-        }
+        .team-info { padding: 20px 15px; }
 
         .team-phrase {
             font-size: 0.8rem;
@@ -541,27 +562,17 @@
             margin-top: 15px;
         }
 
-        .social-btn {
-            color: #fff;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-        
+        .social-btn { color: #fff; font-size: 1.2rem; transition: 0.3s; }
         .social-btn:hover { color: var(--primary-red); }
-        .social-btn.insta:hover { color: #E1306C; }
-        .social-btn.whats:hover { color: #25D366; }
 
-        /* --- Extras (Herbalife & Challenges) --- */
+        /* --- Extras --- */
         .features-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             background: var(--black);
         }
 
-        .feature-box {
-            padding: 60px;
-            text-align: center;
-        }
+        .feature-box { padding: 60px; text-align: center; }
 
         .herbalife-box {
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80');
@@ -570,11 +581,28 @@
             border-right: 1px solid #333;
         }
 
-        .challenge-box {
-            background: #111;
+        .challenge-box { background: #111; }
+
+        .challenge-video-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #cc0000; /* YouTube Red */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s;
         }
 
-        /* --- Services / Assessment --- */
+        .challenge-video-btn:hover {
+            background: #ff0000;
+            transform: scale(1.05);
+        }
+
+        /* --- Services --- */
         .services-section {
             padding: 60px 5%;
             background: #1a1a1a;
@@ -633,15 +661,78 @@
             filter: grayscale(100%) invert(92%) contrast(83%);
         }
 
-        /* Responsividade */
+        /* ========================================= */
+        /* RESPONSIVIDADE (MOBILE)          */
+        /* ========================================= */
         @media (max-width: 768px) {
-            .arena-title { font-size: 2.5rem; }
-            .gooey-word { font-size: 1.8rem; } /* Ajuste para mobile */
-            .about-section, .features-section { grid-template-columns: 1fr; }
+            /* 1. Menu Mobile */
             .nav-links { display: none; }
-            .hero { padding-top: 120px; }
+            .mobile-menu-icon { display: block; }
             .since-badge-header { display: none; }
-            .subtitle-anim-container .char { font-size: 0.9rem; }
+
+            /* 2. Título (Sem quebra de linha) */
+            .arena-title {
+                flex-wrap: nowrap; /* Impede quebrar linha */
+                font-size: 8vw; /* Tamanho fluido */
+            }
+            .char { min-width: auto; } /* Permite encolher se necessário */
+            
+            /* Ajuste do Gooey no mobile */
+            .gooey-word { font-size: 1.5rem; }
+            .gooey-container { gap: 5px; }
+
+            /* Hero adjustments */
+            .hero { padding-top: 120px; }
+            .subtitle-anim-container .char { font-size: 0.8rem; letter-spacing: 0; }
+
+            /* 3. Grids lado a lado (2 Colunas) */
+            .plans-grid, .team-grid {
+                grid-template-columns: 1fr 1fr; /* Força 2 colunas */
+                gap: 10px; /* Gap menor */
+            }
+
+            /* Ajustes nos cards para caber em colunas pequenas */
+            .plan-card {
+                border-radius: 10px;
+            }
+            .plan-header { padding: 15px 5px; }
+            .plan-title { font-size: 1rem; margin-bottom: 5px; }
+            .plan-price { font-size: 2rem; }
+            .plan-body { padding: 10px 5px; font-size: 0.8rem; }
+            .whatsapp-cta { 
+                margin: 10px; 
+                padding: 10px; 
+                font-size: 0.7rem; 
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+            .plan-badge { 
+                font-size: 0.6rem; 
+                padding: 2px 10px; 
+                top: -10px; 
+            }
+
+            /* Ajustes Team Cards */
+            .team-img-placeholder { height: 120px; font-size: 3rem; }
+            .team-info { padding: 10px 5px; }
+            .team-info h3 { font-size: 1rem; }
+            .team-phrase { font-size: 0.7rem; display: none; /* Esconde frase em telas mt pequenas pra limpar */ }
+
+            /* Sections Layout */
+            .about-section, .features-section { grid-template-columns: 1fr; }
+            .feature-box { padding: 40px 20px; }
+            
+            /* Font Sizes Globais */
+            h2 { font-size: 1.8rem; }
+            .shimmer-text { font-size: 1.8rem !important; }
+        }
+        
+        /* Ajuste fino para telas muito pequenas */
+        @media (max-width: 360px) {
+            .plans-grid, .team-grid {
+                grid-template-columns: 1fr; /* Volta pra 1 coluna em celulares muito estreitos se ficar quebrado */
+            }
         }
     </style>
 </head>
@@ -651,14 +742,22 @@
     <svg class="svg-filter">
         <defs>
             <filter id="goo">
-                <!-- stdDeviation reduzido para 2 para texto nítido -->
                 <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                <!-- Contraste na matrix -->
                 <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="goo" />
                 <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
             </filter>
         </defs>
     </svg>
+
+    <!-- Menu Mobile Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav">
+        <div class="close-menu-btn" onclick="toggleMenu()">&times;</div>
+        <a href="#pilates" onclick="toggleMenu()">Pilates</a>
+        <a href="#planos" onclick="toggleMenu()">Planos</a>
+        <a href="#equipe" onclick="toggleMenu()">Equipe</a>
+        <a href="#historia" onclick="toggleMenu()">História</a>
+        <a href="#contato" onclick="toggleMenu()">Contato</a>
+    </div>
 
     <!-- Navegação -->
     <header>
@@ -668,6 +767,8 @@
             </div>
             <div class="since-badge-header">SINCE 2022</div>
         </div>
+        
+        <!-- Menu Desktop -->
         <nav class="nav-links">
             <a href="#pilates">Pilates</a>
             <a href="#planos">Planos</a>
@@ -675,12 +776,17 @@
             <a href="#historia">História</a>
             <a href="#contato">Contato</a>
         </nav>
+
+        <!-- Ícone Menu Mobile -->
+        <div class="mobile-menu-icon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="image_82edc4.png" alt="Arena Fitness Logo" class="logo-img">
+            <img src="logo.png" alt="Arena Fitness Logo" class="logo-img">
             
             <!-- Animação Flip 3D (Título Principal) -->
             <div class="arena-title-container" id="title-container">
@@ -782,8 +888,7 @@
                     <div class="plan-price"><small style="font-size:1.5rem">R$</small>20</div>
                 </div>
                 <div class="plan-body">
-                    <p>Acesso total por 1 dia</p>
-                    <p>Treino livre</p>
+                    <p>Acesso por 1 dia</p>
                 </div>
                 <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+uma+diária" class="whatsapp-cta" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i> Escolher
@@ -799,7 +904,6 @@
                 </div>
                 <div class="plan-body">
                     <p>15 dias de treino</p>
-                    <p>Sem fidelidade</p>
                 </div>
                 <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+quinzenal" class="whatsapp-cta" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i> Escolher
@@ -807,15 +911,14 @@
             </div>
 
             <!-- Mensal (Destaque) -->
-            <div class="plan-card" style="border: 2px solid var(--primary-red); transform: scale(1.05); z-index: 10;">
-                <div class="plan-badge">Mais Popular 🔥</div>
+            <div class="plan-card" style="border: 2px solid var(--primary-red); z-index: 2;">
+                <div class="plan-badge">Popular 🔥</div>
                 <div class="plan-header" style="background: rgba(255,0,0,0.1);">
                     <div class="plan-title" style="color:white;">MENSAL</div>
                     <div class="plan-price"><small style="font-size:1.5rem">R$</small>110</div>
                 </div>
                 <div class="plan-body">
-                    <p style="color: white; font-weight: bold;">30 dias de acesso total</p>
-                    <p>Acompanhamento</p>
+                    <p style="color: white; font-weight: bold;">30 dias acesso</p>
                 </div>
                 <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+mensal" class="whatsapp-cta" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i> Eu Quero!
@@ -831,7 +934,6 @@
                 </div>
                 <div class="plan-body">
                     <p>Plano de 3 meses</p>
-                    <p>Economia progressiva</p>
                 </div>
                 <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+trimestral" class="whatsapp-cta" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i> Escolher
@@ -846,7 +948,6 @@
                 </div>
                 <div class="plan-body">
                     <p>Plano de 6 meses</p>
-                    <p>Resultado consistente</p>
                 </div>
                 <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+semestral" class="whatsapp-cta" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i> Escolher
@@ -855,14 +956,13 @@
 
             <!-- Anual -->
             <div class="plan-card">
-                 <div class="plan-badge" style="background: gold; color: black;">Melhor Valor</div>
+                 <div class="plan-badge" style="background: gold; color: black;">Top Valor</div>
                 <div class="plan-header">
                     <div class="plan-title">ANUAL</div>
                     <div class="plan-price"><small style="font-size:1.5rem">R$</small>1.200</div>
                 </div>
                 <div class="plan-body">
-                    <p>12 meses de treino</p>
-                    <p>Maior economia anual</p>
+                    <p>12 meses</p>
                 </div>
                 <a href="https://api.whatsapp.com/send/?phone=5593991550317&text=Quero+o+plano+anual" class="whatsapp-cta" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i> Escolher
@@ -888,9 +988,9 @@
             <div class="team-card">
                 <div class="team-img-placeholder">🏋️‍♂️</div>
                 <div class="team-info">
-                    <h3 style="color:white;">Gilmar da Silva</h3>
+                    <h3 style="color:white;">Gilmar</h3>
                     <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
-                    <span class="team-phrase">"Comece agora a sua mudança!"</span>
+                    <span class="team-phrase">"Comece agora!"</span>
                     <div class="team-socials">
                         <a href="https://instagram.com" class="social-btn insta"><i class="fa-brands fa-instagram"></i></a>
                         <a href="https://wa.me/" class="social-btn whats"><i class="fa-brands fa-whatsapp"></i></a>
@@ -901,7 +1001,7 @@
             <div class="team-card">
                 <div class="team-img-placeholder">🏋️‍♀️</div>
                 <div class="team-info">
-                    <h3 style="color:white;">Thais Mendes</h3>
+                    <h3 style="color:white;">Thais</h3>
                     <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
                     <span class="team-phrase">"Seu foco é sua força."</span>
                     <div class="team-socials">
@@ -914,7 +1014,7 @@
             <div class="team-card">
                 <div class="team-img-placeholder">🏋️‍♀️</div>
                 <div class="team-info">
-                    <h3 style="color:white;">Milena Miranda</h3>
+                    <h3 style="color:white;">Milena</h3>
                     <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
                     <span class="team-phrase">"Supere seus limites."</span>
                     <div class="team-socials">
@@ -927,7 +1027,7 @@
             <div class="team-card">
                 <div class="team-img-placeholder">🏋️‍♂️</div>
                 <div class="team-info">
-                    <h3 style="color:white;">Eudernal Sousa</h3>
+                    <h3 style="color:white;">Eudernal</h3>
                     <span style="color:var(--primary-red); font-weight:bold;">Instrutor</span>
                     <span class="team-phrase">"Disciplina gera resultado."</span>
                     <div class="team-socials">
@@ -969,6 +1069,14 @@
             <i class="fa-solid fa-person-running" style="font-size: 3rem; color: #00ff88; margin-bottom: 15px;"></i>
             <h4 style="color:white; margin-bottom:15px;">"SUBIDA NA BARRA"</h4>
             <p style="color:#aaa; line-height: 1.6;">Quem fizer Subida na barra fixa de acordo com sua idade, ganha <strong style="color:#fff;">20% de desconto</strong> nos produtos Herbalife!</p>
+            
+            <p style="color: #ddd; margin-top: 20px; font-style: italic;">
+                Exemplo: Se você tem 25 anos, você terá que fazer 25 subidas na barra fixa.
+            </p>
+
+            <a href="https://youtube.com/shorts/uECWARnxI_U?si=CRsW61MZgPR_eqxn" target="_blank" class="challenge-video-btn">
+                <i class="fa-brands fa-youtube"></i> Ver como fazer o Desafio
+            </a>
         </div>
     </section>
 
@@ -1023,6 +1131,12 @@
     </footer>
 
     <script>
+        /* --- MENU MOBILE TOGGLE --- */
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-nav');
+            menu.classList.toggle('active');
+        }
+
         /* --- 1. Animação Flip 3D Automática (Título e Subtítulo) --- */
         function triggerFlipAnimation() {
             const titleContainer = document.getElementById('title-container');
