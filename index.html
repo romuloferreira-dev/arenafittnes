@@ -709,16 +709,17 @@
             .hero h1 { font-size: 2.8rem; line-height: 1.2; }
             
             .typewriter {
-                font-size: 1.1rem;
-                white-space: normal;
-                border-right: none;
-                animation: none;
+                font-size: 4vw; /* Fonte responsiva para caber na tela sem quebrar linha */
+                white-space: nowrap; /* Mantém o texto em uma linha para o efeito funcionar */
+                border-right: .15em solid var(--gold-metal);
+                animation: typing 4s steps(40, end) infinite;
                 text-align: center;
-                width: auto;
-                overflow: visible;
-                display: block;
+                width: 0;
+                overflow: hidden;
+                display: inline-block;
+                letter-spacing: 0; /* Ajuste para caber melhor */
             }
-            .typewriter-container { border-bottom: none; padding-bottom: 0; height: auto; margin-bottom: 30px; display: block; width: 100%; }
+            .typewriter-container { border-bottom: none; padding-bottom: 0; height: auto; margin-bottom: 30px; display: inline-block; width: auto; max-width: 100%; }
 
             .profile-img { height: 350px; }
 
