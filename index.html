@@ -300,6 +300,7 @@
             max-width: 900px;
             padding: 20px;
             width: 100%; 
+            transition: transform 0.3s ease;
         }
 
         .hero h1 {
@@ -310,7 +311,7 @@
             line-height: 1.1;
         }
 
-        /* Efeito Typewriter Refatorado */
+        /* Efeito Typewriter Refatorado - MAIS LENTO */
         .typewriter-container {
             position: relative;
             display: inline-block;
@@ -343,7 +344,8 @@
             font-weight: 300;
             text-transform: uppercase;
             width: 0;
-            animation: typing 4s steps(40, end) infinite;
+            /* Tempo alterado de 4s para 7s para ficar mais suave */
+            animation: typing 7s steps(40, end) infinite;
         }
 
         @keyframes typing {
@@ -719,12 +721,17 @@
                 padding: 50px 0;
             }
 
+            .hero-content {
+                transform: translateY(-25px); /* Move o conteúdo levemente para cima para centralizar visualmente */
+            }
+
             .hero h1 { font-size: 2.8rem; line-height: 1.2; }
             
+            /* Ajuste crucial para o Typewriter funcionar no mobile (mantém numa única linha) */
             .typewriter-phantom,
             .typewriter {
-                font-size: 4.2vw; /* Fonte responsiva para caber na tela perfeitamente */
-                letter-spacing: 0; /* Reduz espaçamento no mobile para caber */
+                font-size: 3.5vw; 
+                letter-spacing: 0; 
             }
             
             .typewriter-container {
@@ -1015,6 +1022,12 @@
     <script async src="https://www.instagram.com/embed.js"></script>
 
     <script>
+        // Garante que o navegador inicie no topo em vez de puxar do cache
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         // Menu Mobile Toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
